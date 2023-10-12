@@ -50,8 +50,8 @@ function game() {
             userScore++
         } else if (result === 'lost') {
             cpuScore++
-        } else {
-            return
+        } else if (result === 'tie') {
+            i--
         }
         alert(`User  ${userScore} : ${cpuScore}  CPU`)
     }
