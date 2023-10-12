@@ -1,1 +1,2 @@
-# odin_rock-paper-scissors
+The Odin Project lesson.
+Rock, Paper Scissors game.
