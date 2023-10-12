@@ -1,30 +1,65 @@
 function getComputerChoice() {
     let arr = ['Rock', 'Paper', 'Scissors'];
     return arr[Math.floor(Math.random() * arr.length)];
-}
+};
 
-const computerSelection = getComputerChoice();
-const playerSelection = 'rOck';
+function playerInteraction() {
+    let choice = prompt('Choose rock, paper or scissors').toLowerCase();
+    if (choice === '' || choice === null) {
+        return alert(`You didn't choose anything`)
+    } else if (choice !== 'rock' && choice !== 'paper' && choice !== 'scissors') {
+        return alert('Probably a typo')
+    } else {
+        return choice
+    }
+};
 
-function playRound(a, b) {
-    let human = a.toLowerCase();
-    let cpu = b.toLowerCase();
-
-    if (human === cpu) {
-        return `It's a tie!`
-    } else if (human === 'paper' && cpu === 'rock') {
-        return 'You won!'
-    } else if (human === 'paper' && cpu === 'scissors') {
-        return 'You lost!'
-    } else if (human === 'scissors' && cpu === 'rock') {
-        return 'You lost!'
-    } else if (human === 'scissors' && cpu === 'paper') {
-        return 'You won!'
-    } else if (human === 'rock' && cpu === 'paper') {
-        return 'You lost!'
-    } else if (human === 'rock' && cpu === 'scissors') {
-        return 'You won!'
+function playRound(a, b) {    
+    if (a === 'paper' && b === 'rock') {
+        return 'won'
+    } else if (a === 'paper' && b === 'scissors') {
+        return 'lost'
+    } else if (a === 'scissors' && b === 'rock') {
+        return 'lost'
+    } else if (a === 'scissors' && b === 'paper') {
+        return 'won'
+    } else if (a === 'rock' && b === 'paper') {
+        return 'lost'
+    } else if (a === 'rock' && b === 'scissors') {
+        return 'won'
+    } else if (a === b) {
+        return `tie`
     } else { return `Something went wrong`}
-}
+};
 
-console.log(playRound(playerSelection, computerSelection));
+
+function game() {
+    let userScore = 0;
+    let cpuScore = 0;
+    
+    for (let i = 0; i < 5; i++) {
+        let playerChoice = playerInteraction();
+        let computerChoice = getComputerChoice().toLowerCase();
+        
+        console.log(playerChoice);
+        console.log(computerChoice);        
+        
+        let result = playRound(playerChoice, computerChoice)
+        
+        if (result === 'won') {
+            userScore++
+        } else if (result === 'lost') {
+            cpuScore++
+        } else {
+            return
+        }
+        alert(`User  ${userScore} : ${cpuScore}  CPU`)
+    }
+    if (userScore > cpuScore) {
+        return alert('You won!')
+    } else if (userScore < cpuScore) {
+        return alert('You lost!')
+    }
+};
+
+game();
