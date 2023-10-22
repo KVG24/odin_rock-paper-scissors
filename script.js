@@ -1,64 +1,91 @@
+const rockBtn = document.getElementById('rock');
+const paperBtn = document.getElementById('paper');
+const scissorsBtn = document.getElementById('scissors');
+const userChoiceDisplay = document.getElementById('user-choice');
+const computerChoiceDisplay = document.getElementById('computer-choice');
+const possibleChoices = document.querySelectorAll('img');
+const userScoreDisplay = document.getElementById('user-score');
+const computerScoreDisplay = document.getElementById('computer-score');
+const result = document.querySelector('.result');
+const restart = document.querySelector('.restart');
+document.querySelector('.restart').style.display = 'none';
+let userChoice;
+let computerChoice;
+let userScore = 0;
+let computerScore = 0;
+
+function main() {
+    rockBtn.addEventListener('click', () => game('rock'))
+    paperBtn.addEventListener('click', () => game('paper'))
+    scissorsBtn.addEventListener('click', () => game('scissors'))
+}
+
+main();
+
+function win(human, computer) {
+    userScore++;
+    userScoreDisplay.textContent = userScore;
+    computerScoreDisplay.textContent = computerScore;
+    userChoiceDisplay.textContent = human;
+    computerChoiceDisplay.textContent = computer;
+    document.getElementById(human).classList.add('won');
+    setTimeout(() => document.getElementById(human).classList.remove('won'), 400)
+}
+
+function lost(human, computer) {
+    computerScore++;
+    computerScoreDisplay.textContent = computerScore;
+    userScoreDisplay.textContent = userScore;
+    userChoiceDisplay.textContent = human;
+    computerChoiceDisplay.textContent = computer;
+    document.getElementById(human).classList.add('lost');
+    setTimeout(() => document.getElementById(human).classList.remove('lost'), 400)
+}
+
+function draw(human, computer) {
+    userChoiceDisplay.textContent = human;
+    computerChoiceDisplay.textContent = computer;
+    document.getElementById(human).classList.add('draw');
+    setTimeout(() => document.getElementById(human).classList.remove('draw'), 400)
+}
+
 function getComputerChoice() {
-    let arr = ['Rock', 'Paper', 'Scissors'];
-    return arr[Math.floor(Math.random() * arr.length)];
+    let arr = ['rock', 'paper', 'scissors']
+    let computerChoice = arr[Math.floor(Math.random() * arr.length)]
+    computerChoiceDisplay.textContent = computerChoice
+    return computerChoice;
+}
+
+function game(human) {
+    let computer = getComputerChoice();
+    if (human === 'paper' && computer === 'rock') {
+        win(human, computer)
+    } else if (human === 'paper' && computer === 'scissors') {
+        lost(human, computer)
+    } else if (human === 'scissors' && computer === 'rock') {
+        lost(human, computer)
+    } else if (human === 'scissors' && computer === 'paper') {
+        win(human, computer)
+    } else if (human === 'rock' && computer === 'paper') {
+        lost(human, computer)
+    } else if (human === 'rock' && computer === 'scissors') {
+        win(human, computer)
+    } else if (human === computer) {
+        draw(human, computer)
+    } else { return console.log(`Something went wrong`);}
+    getWinner();
 };
 
-function getPlayerChoice() {
-    let choice = prompt('Choose rock, paper or scissors').toLowerCase();
-    if (choice === '' || choice === null) {
-        return alert(`You didn't choose anything`)
-    } else if (choice !== 'rock' && 
-                choice !== 'paper' && 
-                choice !== 'scissors') {
-        return alert('Probably a typo')
-    } else {
-        return choice
+function getWinner() {
+    if (userScore === 5 || computerScore === 5) {
+        if (userScore === 5) {
+            result.textContent = 'YOU WON!'
+            document.querySelector('.restart').style.display = 'block';
+        } else {
+            result.textContent = 'YOU LOST!'
+            document.querySelector('.restart').style.display = 'block';
+        }
+        document.querySelector('.btn-container').remove();
+        document.querySelector('h2').remove();
     }
-};
-
-function playRound(human, cpu) {    
-    if (human === 'paper' && cpu === 'rock') {
-        return 'won'
-    } else if (human === 'paper' && cpu === 'scissors') {
-        return 'lost'
-    } else if (human === 'scissors' && cpu === 'rock') {
-        return 'lost'
-    } else if (human === 'scissors' && cpu === 'paper') {
-        return 'won'
-    } else if (human === 'rock' && cpu === 'paper') {
-        return 'lost'
-    } else if (human === 'rock' && cpu === 'scissors') {
-        return 'won'
-    } else if (human === cpu) {
-        return `tie`
-    } else { return `Something went wrong`}
-};
-
-function game() {
-    let userScore = 0;
-    let cpuScore = 0;
-    
-    for (let i = 0; i < 5; i++) {
-        let playerChoice = getPlayerChoice();
-        let computerChoice = getComputerChoice().toLowerCase();       
-        let result = playRound(playerChoice, computerChoice);
-        
-            if (result === 'won') {
-                userScore++
-            } else if (result === 'lost') {
-                cpuScore++
-            } else {
-                i--
-            }
-        alert('User  -  ' + playerChoice + '   ' + userScore + '   :   ' 
-            + cpuScore + '   ' + computerChoice + '  -  CPU')
-    }
-    
-    if (userScore > cpuScore) {
-        return alert('You won!')
-    } else if (userScore < cpuScore) {
-        return alert('You lost!')
-    }
-};
-
-game();
+}

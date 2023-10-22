@@ -4,11 +4,43 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Rock, Paper, Scissors</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Lato:ital@0;1&family=Roboto+Condensed:wght@700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
-    <script src="script.js"></script>
 </head>
 <body>
     <h1>Rock Paper Scissors Game</h1>
-    <h2>Reload page or press F5 to play again</h2>
+    <h2>Make a choice</h2>
+    <div class="btn-container">
+        <div class="choice" >
+            <img id="rock" src="images/rock.png" alt="">
+        </div>
+        <div class="choice" >
+            <img id="paper" src="images/paper.png" alt="">
+        </div>
+        <div class="choice" >
+            <img id="scissors" src="images/scissors.png" alt="">
+        </div>
+    </div>
+    <div class="game">
+        <h2>To 5 wins</h2>
+        <div class="tabs">
+            <div class="user-tab">
+                <p>User<br>choice:</p>
+                <p id="user-choice"></p>
+            </div>
+            <div class="score"><span id="user-score">0</span>:<span id="computer-score">0</span></div>
+            <div class="computer-tab">
+                <p>Computer choice:</p>
+                <p id="computer-choice"></p>
+            </div>
+        </div>
+        <div class="result"></div>
+        <button onClick="window.location.reload();" class="restart">RESTART</div>
+    </div>
+    
+    
+    <script src="script.js"></script>
 </body>
 </html>
