@@ -23,11 +23,12 @@ img {
     max-height: auto;
     border: 3px solid white;
     cursor: pointer;
+    transition: 300ms;
 }
 
 img:hover {
     transform: scale(1.1);
-    transition: 200ms;
+
 }
 
 .btn-container {
